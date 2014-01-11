@@ -6,7 +6,7 @@ import socket
 def conn_scan(port, host):
 	try:
 		test_socket = socket.socket(AF_INET, SOCK_STREAM)
-		test_socket.create_connection(host, port) #higher level than socket.connect(), works for both AF_INET and AF_INET6
+		test_socket.connect((host, port)) #higher level than socket.connect(), works for both AF_INET and AF_INET6
 		print '[+] Port %d open.' % port
 	except:
 		print '[-] Port %d closed.' % port
@@ -19,8 +19,14 @@ def conn_scan(port, host):
 # 		tgtIP = gethostby
 
 
-host = raw_input("enter hostname (google.com): ")
-print("\n\n")
-port = raw_input("enter port numbers (1, 2, 3): ")
 
-conn_scan()
+host = raw_input("enter hostname (google.com): ")
+try:
+	host = int(host)
+except:
+	host = host
+
+print("\n\n")
+port = int(raw_input("enter port numbers (1, 2, 3): "))
+
+conn_scan(port, host)
